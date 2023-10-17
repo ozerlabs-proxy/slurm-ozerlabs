@@ -36,6 +36,9 @@ conda activate cifarTuts
 srun nvidia-smi
 
 
-echo "--**Training**--"
-srun python Train.py
+echo "--**cifar**--"
+srun python Train.py 
+srun python Test.py 
+srun python predict.py
+
 

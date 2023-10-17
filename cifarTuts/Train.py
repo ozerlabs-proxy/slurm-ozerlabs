@@ -56,7 +56,7 @@ for epoch in range(2):  # loop over the dataset multiple times
 
 print('Finished Training')
 
-save_path= "./models"
+save_path= Path("./models")
 save_path.mkdir(parents=True, exist_ok=True)
 PATH = save_path / 'cifar_net.pth'
 
