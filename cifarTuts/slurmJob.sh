@@ -3,16 +3,16 @@
 #SBATCH --job-name=cifar
 #SBATCH --account=users
 #SBATCH --nodes=1
-#SBATCH --nodelist=nova[83]
+##SBATCH --nodelist=nova[32,82,83,101,102]
+#SBATCH --nodelist=nova[82]
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=2
 #SBATCH --partition=main
 #SBATCH --gres=gpu:1
 ##SBATCH --mem=20G
 #SBATCH --time=15-0
 #SBATCH --output=slurm_logs/%x-%j.txt
-#SBATCH --mail-type=ALL
-#SBATCH --mail-user=alain.ndigande@ozu.edu.tr
+
 
 
 echo "---- env ! ----"
@@ -24,25 +24,18 @@ echo "---- env ! ----"
 echo "------- setup done ! -----"
 ## Load the python interpreter
 ##clear the module
-module purge
-module load cuda/11.7
+# module purge
+# module load cuda/11.7
 
 ## conda environment
 source ${HOME}/.bashrc
 eval "$(conda shell.bash hook)"
 
-conda activate VisIrNet
+conda activate cifarTuts
 
-##srun nvidia-smi
+srun nvidia-smi
 
-#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< TRAINING iNTEGRITY>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#
 
 echo "--**Training**--"
-# srun nvidia-smi &&  python Train.py --config-file skydata_default_config.json
-srun nvidia-smi && python Train.py --config-file vedai_default_config.json
-# # srun nvidia-smi && python3 Train.py --config-file googlemap_default_config.json 
+srun python Train.py
 
-
-
-#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<DATASETS iNTEGRITY>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>#
-# srun python scripts/check_dataset_integrity.py 
